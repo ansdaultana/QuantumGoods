@@ -19,6 +19,7 @@
         "vue": "^3.4.10"
     },
     "dependencies": {
+        "@heroicons/vue": "^2.1.1",
         "@inertiajs/inertia": "^0.11.1",
         "inertia": "^0.0.7"
     }
