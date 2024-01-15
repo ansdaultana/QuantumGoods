@@ -7,9 +7,12 @@
             </div>
            
             <div class=" items-center flex justify-center">
-            <input
-            placeholder="Enter Your Email!!!"
-            type="text" class="w-60 rounded-l-lg outline-none text-gray-600 placeholder:text-gray-400 ">
+                <input
+                placeholder="Enter Your Email!!!"
+                type="text"
+                class="w-60 rounded-l-lg outline-none text-gray-600 placeholder:text-gray-400 border-none focus:outline-none"
+            />
+            
             <button class=" p-2 bg-yellow-300 rounded-r-lg  text-gray-600">
                 Subscrible
             </button>
