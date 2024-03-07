@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container p-2 md:p-10 rounded-lg relative">
+  <div class="slider-container p-2 md:p-8 rounded-lg relative">
     <div class="slider bg-slate-100 relative"> <!-- Set a fixed background color here -->
       
       <div class="flex items-center justify-center">
