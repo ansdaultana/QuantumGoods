@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Vendor\Auth\VAuthController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +26,8 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+Route::middleware('auth:vendors')->group(function () {
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -36,5 +40,10 @@ Route::middleware([
 
 });
 
+// Vendor
+Route::middleware(['auth:sanctum'])->prefix('/vendor')->group(function (){
+    Route::get('/registerPage',[VAuthController::class,'registerPage']);
+    Route::post('/register',[VAuthController::class,'register'])->name('vendor.register');
+});
 
 Route::get('/',[HomeController::class,'index'])->name('home');

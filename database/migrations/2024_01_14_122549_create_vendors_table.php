@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained(); // Foreign key to the users table
             $table->string('company_name');
-            $table->string('contact_person');
             $table->string('address');
-            $table->string('phone_number');
-            $table->string('bank_account_number')->nullable();
+            $table->string('phone_number')->unique();
+            $table->string('bank_name');
+            $table->longText('details')->nullable();
+            $table->string('bank_account_number');
             $table->string('payment_gateway_info')->nullable();
             $table->string('facebook_store_url')->nullable();
             $table->string('instagram_store_url')->nullable();
