@@ -1,22 +1,11 @@
 <script setup>
+import {gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome} from '../Navigation.js'
 import NavbarButton from './NavbarButton.vue';
 import { router ,usePage} from '@inertiajs/vue3';
 import { computed } from 'vue';
 const page=usePage();
 const autheticated=page.props.auth.user!==null;
-const gotoSignIn = ()=>
-{
-    router.get('/login')
-}
-const gotoVendorRegister =()=>
-{
-    router.get('/vendor/registerPage')
-}
 
-const gotoMyShop =()=>
-{
-    router.get('/vendor/dashboard');
-}
 
 const isVendor= computed(()=>page.props.isVendor);
 </script>
@@ -25,7 +14,7 @@ const isVendor= computed(()=>page.props.isVendor);
     <div>
         <div class="flex justify-between w-full p-2  items-center text-xs md:text-sm  rounded-xxl">
             <div class="flex justify-between  w-auto p-2">
-                <div class="text-blue-500 sm:w-20 md:w-44  font-extrabold text-sm md:text-xl p-1">Quantum Goods</div>
+                <div class="text-blue-500 sm:w-20 md:w-44  font-extrabold text-sm md:text-xl p-1 cursor-pointer " @click.prevent="gotoHome">Quantum Goods</div>
                 <div class="  font-bold">
 
                 <NavbarButton>

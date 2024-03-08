@@ -1,5 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
+ import {gotoHome} from '../Navigation.js'
+
 const props = defineProps({
   mode: String,
 })
@@ -18,7 +20,7 @@ const props = defineProps({
       class="flex items-center justify-center w-full  m-5 border-gray-500  ">
       <div :class="{ 'md:p-10': mode === 'vendor', 'md:p-20': mode !== 'vendor' }" class="shadow-2xl shadow-blue-400 border-gray-300 border-2 p-8  rounded-xl">
         <div class="flex-col items-center justify-center ">
-          <div class="flex items-center justify-center ">
+          <div class="flex items-center justify-center cursor-pointer " @click.prevent="gotoHome">
             <span class="font-extrabold text-3xl text-blue-500">Quantum</span>
             <span class="text-3xl">Goods</span>
 

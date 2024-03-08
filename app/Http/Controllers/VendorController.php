@@ -11,7 +11,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        dd('here');
-        Inertia::render('/Vendor/vendordashboad');
+        //  dd('here');
+        return Inertia::render('Vendor/VendorDashboard');
     }
 }
