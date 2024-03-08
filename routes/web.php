@@ -26,8 +26,7 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::middleware('auth:vendors')->group(function () {
-});
+
 
 Route::middleware([
     'auth:sanctum',
@@ -44,6 +43,10 @@ Route::middleware([
 Route::middleware(['auth:sanctum'])->prefix('/vendor')->group(function (){
     Route::get('/registerPage',[VAuthController::class,'registerPage']);
     Route::post('/register',[VAuthController::class,'register'])->name('vendor.register');
+});
+
+Route::middleware(['role:vendor','auth'])->prefix('/vendor')->group(function () {
+    Route::get('/dashboard',[VendorController::class,'index'])->name('vendor.dashboad');
 });
 
 Route::get('/',[HomeController::class,'index'])->name('home');

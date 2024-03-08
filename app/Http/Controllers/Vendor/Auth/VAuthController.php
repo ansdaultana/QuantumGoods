@@ -40,6 +40,9 @@ class VAuthController extends Controller
         $vendor->fill($validatedData);
         
         $vendor->save();
+        $user=Auth::user();
+        $user->role='vendor';
+        $user->save();
         
         return redirect()->route('home');
     }

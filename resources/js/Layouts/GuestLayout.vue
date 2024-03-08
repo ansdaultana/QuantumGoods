@@ -10,13 +10,13 @@ const props = defineProps({
 
 
   <div class="flex min-h-screen justify-between ">
-    <div v-if="mode != 'vendor'" class="hidden lg:block w-1/2 ">
-      <img src="/Images/GuestImg.jpg" class="rounded-3xl h-screen  p-4" alt="">
+    <div v-if="mode != 'vendor'" class="hidden lg:block w-2/3 ">
+      <img src="/Images/GuestImg.jpg" class=" rounded-r-3xl shadow-2xl h-screen  " alt="">
 
     </div>
     <div :class="{ 'w-full': mode === 'vendor', 'lg:w-1/2': mode !== 'vendor' }"
-      class="flex items-center justify-center w-full  m-5 border-gray-500 ">
-      <div :class="{ 'md:10': mode === 'vendor', 'md:20': mode !== 'vendor' }" class="border-gray-300 border-2 p-8  rounded-xl">
+      class="flex items-center justify-center w-full  m-5 border-gray-500  ">
+      <div :class="{ 'md:p-10': mode === 'vendor', 'md:p-20': mode !== 'vendor' }" class="shadow-2xl shadow-blue-400 border-gray-300 border-2 p-8  rounded-xl">
         <div class="flex-col items-center justify-center ">
           <div class="flex items-center justify-center ">
             <span class="font-extrabold text-3xl text-blue-500">Quantum</span>

@@ -15,6 +15,7 @@ import { computed } from 'vue';
 const page =usePage()
 
 const banks=computed(()=>page.props.banks);
+console.log(banks.value);
 
 const form = useForm({
     company_name: '',
