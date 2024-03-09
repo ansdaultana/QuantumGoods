@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'price', 'category_id'];
+    protected $fillable = ['name', 'description', 'price', 'category_id','quantity'];
 
     public function category()
     {
@@ -22,5 +22,9 @@ class Item extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class)->withPivot('quantity');
+    }
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

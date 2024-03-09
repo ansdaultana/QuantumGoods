@@ -16,5 +16,8 @@ const gotoMyShop =()=>
 const gotoHome=()=>{
     router.get('/');
 }
+const gotoNewProduct=()=>{
+    router.get('/vendor/dashboard/newproduct');
+}
 
-export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome };
+export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct };

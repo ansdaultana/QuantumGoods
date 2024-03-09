@@ -18,9 +18,9 @@ class Vendor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function items()
+    public function products()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Product::class);
     }
 
     public function orders()

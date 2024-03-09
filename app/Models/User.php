@@ -69,13 +69,5 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    public function isVendor()
-    {
-        $user = Auth::user();
-        $isVendor = false;
 
-        if ($user) {
-            $isVendor = Vendor::where('user_id', $user->id)->exists();
-        }
-    }
 }

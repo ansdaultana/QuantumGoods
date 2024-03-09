@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Vendor\Auth\VAuthController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
@@ -47,6 +48,8 @@ Route::middleware(['auth:sanctum'])->prefix('/vendor')->group(function (){
 
 Route::middleware(['role:vendor','auth'])->prefix('/vendor')->group(function () {
     Route::get('/dashboard',[VendorController::class,'index'])->name('vendor.dashboad');
+    Route::get('/dashboard/newproduct',[ProductController::class,'new']);
+    Route::post('/dashboard/newproduct/create',[ProductController::class,'create'])->name('product.new');
 });
 
 Route::get('/',[HomeController::class,'index'])->name('home');

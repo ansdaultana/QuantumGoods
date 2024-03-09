@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('users');// Foreign key to the customers table
             $table->foreignId('vendor_id')->constrained();   // Foreign key to the vendors table
-            $table->foreignId('item_id')->constrained();     // Foreign key to the items table
+            $table->foreignId('product_id')->constrained();     // Foreign key to the items table
             $table->integer('quantity');
             $table->decimal('total_price', 8, 2);
             $table->timestamps();

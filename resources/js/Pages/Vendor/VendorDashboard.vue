@@ -1,12 +1,13 @@
 <script setup>
 import Sidebar from '@/Components/Vendor/Sidebar.vue'
-
+import DashboardLayout from '@/Layouts/Vendor/DashboardLayout.vue'
+import { defineOptions } from 'vue';
+defineOptions({
+    layout: DashboardLayout,
+});
 </script>
 
-<template>
-    <div class="bg-slate-200">
-
-        <Sidebar>
-        </Sidebar>
-    </div>
+ <template>
+    <!-- <DashboardLayout>
+    </DashboardLayout>  -->
 </template>

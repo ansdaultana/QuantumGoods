@@ -1,21 +1,17 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import MenuItemSidebar from './MenuItemSidebar.vue';
 import SubItem from './SubItem.vue'
-import Navbar from './Navbar.vue'
-const CustomerMenu = ref(false)
-const OrderMenu = ref(false)
-const ProductMenu = ref(false)
+import { gotoNewProduct } from '@/Navigation';
 
+const ProductMenu = ref(false)
 </script>
 
 <template>
 
     <Head title="Dashboard" />
 
-    <Navbar />
     <div class="h-screen w-1/6   bg-white ">
 
         <div>
@@ -36,7 +32,7 @@ const ProductMenu = ref(false)
             <div v-if="ProductMenu" @mouseenter="ProductMenu = true" @mouseleave="ProductMenu = false"
                 class="duration-300 ease-in-out transition-opacity text-sm">
                 <SubItem>
-                    <div>
+                    <div @click.prevent="gotoNewProduct">
                         Add Product
                     </div>
                 </SubItem>
