@@ -19,12 +19,14 @@ const form = useForm({
     description: '',
     images: [],
     price: 0,
-    category: 'Select Category',
+    category: 0,
     quantity: 0
 
 });
+const category_temp=ref('Select Category');
 const updateCategory = (selectedCategory) => {
-    form.category = selectedCategory.name;
+    form.category = selectedCategory.id;
+    category_temp.value=selectedCategory.name;
 
 };
 const fileInput = ref(null);
@@ -33,12 +35,33 @@ const ImagesViewLocal = ref([]);
 const ImagesError = ref('');
 
 const submit = () => {
-    form.transform(data => ({
-        ...data,
-        remember: form.remember ? 'on' : '',
-    })).post(route('product.new'), {
-        onFinish: () => form.reset('title', 'description', 'price', 'quantity', 'category'),
-    });
+    if (form.images.length < 1) {
+        ImagesError.value = 'Please Add Atleast 1 picture.';
+    }
+    else if (form.quantity===0)
+    {
+        form.errors.quantity = 'Please Add Number of Items You have.';
+
+    }
+    else if (form.price===0)
+    {
+        form.errors.price = 'Please Add the price of the Product.';
+
+    }
+    else if(form.category===0)
+    {
+        form.errors.category = 'Please Select A Category.';
+        category_temp.value='Select Category'
+
+    }
+    else {
+        form.transform(data => ({
+            ...data,
+            remember: form.remember ? 'on' : '',
+        })).post(route('product.new'), {
+            onFinish: () => form.reset('title', 'description', 'price', 'quantity', 'category'),
+        });
+    }
 };
 
 const handleButtonClick = () => {
@@ -54,11 +77,11 @@ const ImagesUpload = () => {
 
             if (ImagesViewLocal.value.length < 4) {
                 ImagesViewLocal.value.push({ url: imageUrl });
-                form.images.push(file); 
+                form.images.push(file);
                 console.log(form.images)
             } else {
                 ImagesError.value = 'Maximum of 4 images allowed.';
-                break; // Stop adding more images
+                break; 
             }
         } else {
             ImagesError.value = 'Image is not in Jpeg or Png format.';
@@ -69,6 +92,7 @@ const ImagesUpload = () => {
 
 <template>
     <div class="bg-white w-1/2 rounded-xl shadow-blue-100 shadow-md h-auto m-10 p-10">
+        <div class="-mt-3 pb-2 text-blue-500 font-bold"> Create New Product!</div>
         <form @submit.prevent="submit">
             <div>
 
@@ -94,7 +118,7 @@ const ImagesUpload = () => {
                         <span class="inline-flex rounded-md">
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-slate-100 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                {{ form.category }}
+                                {{ category_temp }}
                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -116,6 +140,7 @@ const ImagesUpload = () => {
 
 
                 </Dropdown>
+                <InputError class="mt-2" :message="form.errors.category" />
 
             </div>
             <div class="mt-2 flex justify-between">
@@ -128,7 +153,7 @@ const ImagesUpload = () => {
                 <div>
                     <InputLabel for="quantity" value="Quantity"></InputLabel>
                     <TextInput id="quantity" type="number" class="mt-1 block w-full" v-model="form.quantity" required
-                        autofocus autocomplete="quantity" />
+                        autofocus autocomplete="quantity"  />
                     <InputError class="mt-2" :message="form.errors.quantity" />
                 </div>
             </div>

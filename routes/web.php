@@ -50,6 +50,7 @@ Route::middleware(['role:vendor','auth'])->prefix('/vendor')->group(function () 
     Route::get('/dashboard',[VendorController::class,'index'])->name('vendor.dashboad');
     Route::get('/dashboard/newproduct',[ProductController::class,'new']);
     Route::post('/dashboard/newproduct/create',[ProductController::class,'create'])->name('product.new');
+    Route::get('/dashboard/products',[ProductController::class,'index'])->name('vendor.products');
 });
 
 Route::get('/',[HomeController::class,'index'])->name('home');
