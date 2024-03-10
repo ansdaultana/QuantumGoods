@@ -1,5 +1,4 @@
 <script setup>
-import Sidebar from '@/Components/Vendor/Sidebar.vue'
 import DashboardLayout from '@/Layouts/Vendor/DashboardLayout.vue'
 import Card from '@/Components/Vendor/Card.vue';
 import { defineOptions,computed } from 'vue';
@@ -20,6 +19,7 @@ defineOptions({
         <div class="bg-slate-50  p-8  w-auto m-6 h-auto grid md:grid-cols-2  lg:grid-cols-4  rounded-xl gap-x-4 gap-y-4 md:gap-y-4 ">
             <Card v-for="product in products" :key="product.id" :item="product">
             </Card>
+            <!-- <EditProduct/> -->
         </div>
     </div>
 </template>

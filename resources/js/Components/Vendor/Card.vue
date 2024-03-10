@@ -1,6 +1,7 @@
 <script setup>
 import EditButton from '../Product/EditButton.vue';
-import DeleteButton from '../Product/DeleteButton.vue'
+import DeleteButton from '../Product/DeleteButton.vue';
+import {gotoEditProduct} from '@/Navigation.js'
 
 defineProps({
     item: Object
@@ -21,7 +22,7 @@ defineProps({
             <span v-text="item.price" class="text-md  font-bold"></span>
         </div>
         <div class="flex m-2 gap-x-2">
-            <EditButton/>
+            <EditButton @click.prevent="gotoEditProduct(item.id)"/>
             <DeleteButton/>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <script setup>
 import DashboardLayout from '@/Layouts/Vendor/DashboardLayout.vue';
-import NewProductForm from '@/Components/Product/NewProductForm.vue'
+import EditProductForm from '@/Components/Product/EditProductForm.vue';
 import { defineOptions } from 'vue';
 defineOptions({
     layout: DashboardLayout,
@@ -9,8 +9,6 @@ defineOptions({
 
 
 <template>
-
-
-    <NewProductForm>
-    </NewProductForm>
+    <EditProductForm>
+    </EditProductForm>
 </template>

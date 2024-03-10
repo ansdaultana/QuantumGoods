@@ -46,11 +46,14 @@ Route::middleware(['auth:sanctum'])->prefix('/vendor')->group(function (){
     Route::post('/register',[VAuthController::class,'register'])->name('vendor.register');
 });
 
-Route::middleware(['role:vendor','auth'])->prefix('/vendor')->group(function () {
-    Route::get('/dashboard',[VendorController::class,'index'])->name('vendor.dashboad');
-    Route::get('/dashboard/newproduct',[ProductController::class,'new']);
-    Route::post('/dashboard/newproduct/create',[ProductController::class,'create'])->name('product.new');
-    Route::get('/dashboard/products',[ProductController::class,'index'])->name('vendor.products');
+Route::middleware(['role:vendor','auth'])->prefix('/vendor/dashboard')->group(function () {
+    Route::get('/',[VendorController::class,'index'])->name('vendor.dashboad');
+    Route::get('/newproduct',[ProductController::class,'new']);
+    Route::post('/newproduct/create',[ProductController::class,'create'])->name('product.new');
+    Route::get('/editproduct/{id}',[ProductController::class,'editPage']);
+
+     Route::post('/editproduct/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::get('/products',[ProductController::class,'index'])->name('vendor.products');
 });
 
 Route::get('/',[HomeController::class,'index'])->name('home');

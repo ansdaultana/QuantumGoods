@@ -22,5 +22,7 @@ const gotoNewProduct=()=>{
 const gotoVendorProducts=()=>{
     router.get('/vendor/dashboard/products');
 }
-
-export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts };
+const gotoEditProduct=(id)=>{
+    router.get(`/vendor/dashboard/editproduct/${id}`);
+}
+export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts,gotoEditProduct };
