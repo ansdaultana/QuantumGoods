@@ -1,11 +1,24 @@
 <script setup>
 import EditButton from '../Product/EditButton.vue';
 import DeleteButton from '../Product/DeleteButton.vue';
-import {gotoEditProduct} from '@/Navigation.js'
-
-defineProps({
-    item: Object
+import {gotoEditProduct,DeleteProduct} from '@/Navigation.js'
+import {ref} from 'vue'
+const emit=defineEmits(['delete'])
+const props=defineProps({
+    item: Object,
+    openDeleteModal:Boolean
 })
+const ConfirmDelete =()=>{
+    if(props.openDeleteModal)
+    {
+        emit('delete', { openModal: false });
+
+    }
+    else{
+
+        emit('delete', { openModal: true, id: props.item.id });
+    }
+}
 </script>
 
 <template>
@@ -23,7 +36,8 @@ defineProps({
         </div>
         <div class="flex m-2 gap-x-2">
             <EditButton @click.prevent="gotoEditProduct(item.id)"/>
-            <DeleteButton/>
+            <DeleteButton @click.prevent="ConfirmDelete"/>
+            <!-- <ModalDelete /> -->
         </div>
     </div>
 </div>

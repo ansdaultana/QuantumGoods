@@ -95,12 +95,12 @@ class ProductController extends Controller
         }
         $images = [];
         foreach ($product->images as $image) {
-                // Encode each image to base64 and store them in an array
-                $imageData = base64_encode(Storage::get($image->image_path));
-                $images[] = 'data:image/jpeg;base64,' . $imageData;
-            }
-            // Assign the array of base64 encoded images to a new attribute, e.g., 'encoded_images'
-            $product['encoded_images'] = $images;
+            // Encode each image to base64 and store them in an array
+            $imageData = base64_encode(Storage::get($image->image_path));
+            $images[] = 'data:image/jpeg;base64,' . $imageData;
+        }
+        // Assign the array of base64 encoded images to a new attribute, e.g., 'encoded_images'
+        $product['encoded_images'] = $images;
         return Inertia::render(
             'Vendor/EditProduct',
             [
@@ -146,5 +146,15 @@ class ProductController extends Controller
         }
         return response()->redirectTo(route('vendor.products'));
 
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
         }
+        $product->delete();
+        return response()->redirectTo(route('vendor.products'));
+    }
 }

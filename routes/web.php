@@ -48,11 +48,16 @@ Route::middleware(['auth:sanctum'])->prefix('/vendor')->group(function (){
 
 Route::middleware(['role:vendor','auth'])->prefix('/vendor/dashboard')->group(function () {
     Route::get('/',[VendorController::class,'index'])->name('vendor.dashboad');
+    // New
     Route::get('/newproduct',[ProductController::class,'new']);
     Route::post('/newproduct/create',[ProductController::class,'create'])->name('product.new');
+    
+    // Edit
     Route::get('/editproduct/{id}',[ProductController::class,'editPage']);
+    Route::post('/editproduct/{id}',[ProductController::class,'edit'])->name('product.edit');
 
-     Route::post('/editproduct/{id}',[ProductController::class,'edit'])->name('product.edit');
+    // Delete
+    Route::post('/deleteproduct/{id}',[ProductController::class,'delete'])->name('product.delete');
     Route::get('/products',[ProductController::class,'index'])->name('vendor.products');
 });
 

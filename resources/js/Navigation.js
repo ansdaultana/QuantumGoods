@@ -25,4 +25,8 @@ const gotoVendorProducts=()=>{
 const gotoEditProduct=(id)=>{
     router.get(`/vendor/dashboard/editproduct/${id}`);
 }
-export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts,gotoEditProduct };
+
+const DeleteProduct=(id)=>{
+    router.post(`/vendor/dashboard/deleteproduct/${id}`);
+}
+export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts,gotoEditProduct,DeleteProduct };
