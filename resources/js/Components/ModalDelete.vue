@@ -17,9 +17,9 @@ const confirmDelete = () => {
 
 <template>
     <div
-        class="absolute md:top-[20%] md:left-[45%] h-auto w-auto  bg-slate-100 shadow-lg shadow-blue-200 p-8   m-6   rounded-xl  transition-transform hover:scale-103 duration-400">
+        class="md:absolute left-[25%] md:top-[20%] md:left-[45%] fixed h-auto w-60 md:w-auto  bg-slate-100 shadow-lg shadow-blue-200 p-2 md:p-8   md:m-6   rounded-xl  transition-transform hover:scale-103 duration-400">
 
-        <div class="flex justify-end p-1 rounded-full -mt-8 -mr-8">
+        <div class="flex justify-end p-1 rounded-full -mt-2 md:-mt-8 md:-mr-8">
             <div @click.prevent="CloseModal" class="bg-white hover:text-red-500 rounded-full hover:bg-red-100">
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -29,10 +29,10 @@ const confirmDelete = () => {
             </div>
 
         </div>
-        <div class="text-gray-600 font-bold p-2">
+        <div class="text-gray-600 text-sm md:text-lg md:font-bold p-2">
             Are you sure you want to delete this item?
         </div>
-        <div class="flex items-center justify-center gap-x-10 mt-5">
+        <div class="flex items-center justify-center gap-x-10 mt-3 md:mt-5">
             <button @click.prevent="confirmDelete"
                 class="bg-red-200 p-2 items-center  text-red-700  rounded-xl w-20 flex border-white hover:bg-red-300 transition-transform duration-200 hover:scale-103 ease-out">
 

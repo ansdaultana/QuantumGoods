@@ -3,17 +3,28 @@ import Navbar from '../Components/Navbar.vue'
 import CategoryBar from '@/Components/CategoryBar.vue';
 import Footer from '@/Components/Footer.vue';
 import ImageSlider from '@/Components/ImageSlider.vue'
+import TrendingProducts from '@/Components/Product/TrendingProducts.vue'
 import { Head } from '@inertiajs/vue3';
 
 </script>
 
 <template>
+
     <Head title="Home" />
+
+    <Navbar />
+    <div class="bg-slate-100 text-sm">
+        <div >
+            <CategoryBar />
+            <div class="h-60 md:h-96">
+                <ImageSlider />
     
-<Navbar/>
-<div class="bg-slate-100 text-sm h-screen">
-<CategoryBar/>
-<ImageSlider/>
-</div>
-<Footer/>
+            </div>
+        </div>
+    <TrendingProducts />
+
+    </div>
+
+
+    <Footer />
 </template>

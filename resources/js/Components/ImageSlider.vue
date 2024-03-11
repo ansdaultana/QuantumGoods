@@ -1,6 +1,6 @@
 <template>
-  <div class="slider-container p-2 md:p-8 rounded-lg relative">
-    <div class="slider bg-slate-100 relative"> <!-- Set a fixed background color here -->
+  <div class="slider-container p-2 md:p-8 rounded-lg h-auto">
+    <div class="slider bg-slate-100 "> <!-- Set a fixed background color here -->
       
       <div class="flex items-center justify-center">
         <transition name="slide" mode="out-in">
