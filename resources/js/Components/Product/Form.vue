@@ -23,27 +23,29 @@ const fileInput = ref(null);
 const acceptedImageTypes = ['image/jpeg', 'image/png'];
 const ImagesViewLocal = ref([]);
 const ImagesError = ref('');
-
+const ImagesViewLocalGivenByBackend=ref([]);
 const form = useForm({
     title: '',
     description: '',
     images: [],
     price: 0,
     category: 0,
-    quantity: 0
+    quantity: 0,
+    deletedImages:[]
 });
 if (props.mode === 'editProduct') {
     form.title = props.product.title;
     form.description = props.product.description;
-    form.images = props.product.encoded_images;
     form.price = props.product.price;
     form.category = props.product.category_id;
     form.quantity = props.product.quantity;
 
-    ImagesViewLocal.value = props.product.encoded_images.map(image => ({ url: image }));
     const selectedCategory = categories.value.find(category => category.id === props.product.category_id);
     if (selectedCategory) {
         category_temp.value = selectedCategory.name;
+    }
+    if (props.product.hasImages) {
+        ImagesViewLocalGivenByBackend.value = props.product.encoded_images.map(image => ({ url: image.link, id: image.id }));
     }
 
 }
@@ -55,9 +57,10 @@ const updateCategory = (selectedCategory) => {
 
 
 const submit = () => {
-    if (form.images.length < 1) {
+    if (form.images.length + ImagesViewLocalGivenByBackend.value.length< 1) {
         ImagesError.value = 'Please Add Atleast 1 picture.';
     }
+    
     else if (form.quantity === 0) {
         form.errors.quantity = 'Please Add Number of Items You have.';
     }
@@ -69,19 +72,18 @@ const submit = () => {
         category_temp.value = 'Select Category';
     }
     else {
-        console.log('here')
+        if (form.images.length === 0) {
+            // Add a temporary image URL or placeholder
+            form.images.push('eqwwq');
+        }
         if (props.mode === 'editProduct') {
-            console.log('Edit')
 
             form.transform(data => ({
                 ...data,
                 remember: form.remember ? 'on' : '',
-            })).post(`/vendor/dashboard/editproduct/${props.product.id}`, {
-                onFinish: () => form.reset('title', 'description', 'price', 'quantity', 'category'),
-            });
+            })).post(`/vendor/dashboard/editproduct/${props.product.id}`);
         }
         else if (props.mode === 'newProduct') {
-            console.log('new')
 
             form.transform(data => ({
                 ...data,
@@ -101,10 +103,9 @@ const ImagesUpload = () => {
         if (acceptedImageTypes.includes(file.type)) {
             const imageUrl = URL.createObjectURL(file);
 
-            if (ImagesViewLocal.value.length < 4) {
+            if (ImagesViewLocal.value.length  + ImagesViewLocalGivenByBackend.value.length < 4) {
                 ImagesViewLocal.value.push({ url: imageUrl });
                 form.images.push(file);
-                console.log(form.images)
             } else {
                 ImagesError.value = 'Maximum of 4 images allowed.';
                 break;
@@ -118,7 +119,12 @@ const ImagesUpload = () => {
 const RemoveImage = (data) => {
     form.images.splice(data.index, 1);
     ImagesViewLocal.value = ImagesViewLocal.value.filter(image => image.url !== data.url);
-    console.log(form.images)
+
+}
+const RemoveImageFromBackend = (data) => {
+    ImagesViewLocalGivenByBackend.value = ImagesViewLocalGivenByBackend.value.filter(image => image.url !== data.url);
+    form.deletedImages.push(data.id);
+
 
 }
 </script>
@@ -193,9 +199,14 @@ const RemoveImage = (data) => {
             <div class="mt-2">
                 <InputLabel for="Images" value="Images"></InputLabel>
                 <div class="flex gap-x-2">
-                    <div v-for="(image, index) in ImagesViewLocal" :key="index">
-                        <ImageBox :url="image.url" :index="index" @deleteImage="RemoveImage" />
+                    <div v-for="(image, index) in ImagesViewLocalGivenByBackend" :key="index">
+                        <ImageBox v-if="mode === 'editProduct'" :url="image.url" :index="index" :id="image.id" @deleteImage="RemoveImage" @deleteImageInBackend="RemoveImageFromBackend" />
                     </div>
+
+                      <div v-for="(image, index) in ImagesViewLocal" :key="index">  
+                          <ImageBox v-if="mode === 'newProduct'" :url="image.url" :index="index" @deleteImage="RemoveImage" />  
+                          <ImageBox v-if="mode === 'editProduct'" :url="image.url" :index="index" @deleteImage="RemoveImage"  />  
+                      </div>  
                     <input class="hidden" type="file" ref="fileInput" @change="ImagesUpload" multiple>
                     <UploadImageButton @click.prevent="handleButtonClick" />
 

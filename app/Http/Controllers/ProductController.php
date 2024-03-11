@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -97,10 +98,23 @@ class ProductController extends Controller
         foreach ($product->images as $image) {
             // Encode each image to base64 and store them in an array
             $imageData = base64_encode(Storage::get($image->image_path));
-            $images[] = 'data:image/jpeg;base64,' . $imageData;
+            $images[] =
+            [
+                'id' => $image->id,
+                'link' => 'data:image/jpeg;base64,' . $imageData
+            ];
+
         }
         // Assign the array of base64 encoded images to a new attribute, e.g., 'encoded_images'
         $product['encoded_images'] = $images;
+        if (count($product['encoded_images']) > 0) {
+            $product['hasImages']=true;
+        }
+        else
+        {
+            $product['hasImages']=false;
+
+        }
         return Inertia::render(
             'Vendor/EditProduct',
             [
@@ -122,18 +136,22 @@ class ProductController extends Controller
             'category' => 'required|integer|min:1',
             'description' => 'required|string',
             'images' => 'required|array|max:4',
+            'deletedImages'=>'array',
+            'deletedImages.*'=>'integer',
             // 'images.*' => 'image|mimes:jpeg,png|base64image|max:2048',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+        // dd($request);
+        // dd($validator->deletedImages);
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->vendor_id = Auth::id();
         $product->category_id = $request->category;
-
+        
 
         $product->save();
 
@@ -142,6 +160,16 @@ class ProductController extends Controller
             foreach ($request->file('images') as $image) {
                 $path = $image->store('public/Store/Images');
                 $product->images()->create(['image_path' => $path]);
+            }
+        }
+
+        if ($request->has('deletedImages')) {
+            foreach ($request->deletedImages as $imageId) {
+                $image = ProductImage::find($imageId);
+                if ($image) {
+                    Storage::delete($image->image_path);
+                    $image->delete();
+                }
             }
         }
         return response()->redirectTo(route('vendor.products'));
