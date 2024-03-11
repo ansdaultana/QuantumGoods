@@ -39,7 +39,7 @@ if (props.mode === 'editProduct') {
     form.price = props.product.price;
     form.category = props.product.category_id;
     form.quantity = props.product.quantity;
-    
+
     ImagesViewLocal.value = props.product.encoded_images.map(image => ({ url: image }));
     const selectedCategory = categories.value.find(category => category.id === props.product.category_id);
     if (selectedCategory) {
@@ -71,7 +71,7 @@ const submit = () => {
     else {
         console.log('here')
         if (props.mode === 'editProduct') {
-        console.log('Edit')
+            console.log('Edit')
 
             form.transform(data => ({
                 ...data,
@@ -81,7 +81,7 @@ const submit = () => {
             });
         }
         else if (props.mode === 'newProduct') {
-        console.log('new')
+            console.log('new')
 
             form.transform(data => ({
                 ...data,
@@ -114,10 +114,17 @@ const ImagesUpload = () => {
         }
     }
 };
+
+const RemoveImage = (data) => {
+    form.images.splice(data.index, 1);
+    ImagesViewLocal.value = ImagesViewLocal.value.filter(image => image.url !== data.url);
+    console.log(form.images)
+
+}
 </script>
 
 <template>
-    <div class="bg-white w-1/2 rounded-xl shadow-blue-100 shadow-md h-auto m-10 p-10">
+    <div class="bg-white w-auto md:w-1/2 rounded-xl shadow-blue-100 shadow-md h-auto m-4 md:m-10 p-10">
         <div class="-mt-3 pb-2 text-blue-500 font-bold"> Create New Product!</div>
         <form @submit.prevent="submit">
             <div>
@@ -187,7 +194,7 @@ const ImagesUpload = () => {
                 <InputLabel for="Images" value="Images"></InputLabel>
                 <div class="flex gap-x-2">
                     <div v-for="(image, index) in ImagesViewLocal" :key="index">
-                        <ImageBox :url="image.url" />
+                        <ImageBox :url="image.url" :index="index" @deleteImage="RemoveImage" />
                     </div>
                     <input class="hidden" type="file" ref="fileInput" @change="ImagesUpload" multiple>
                     <UploadImageButton @click.prevent="handleButtonClick" />
@@ -198,10 +205,12 @@ const ImagesUpload = () => {
                 </div>
             </div>
             <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton v-if="mode==='newProduct'" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton v-if="mode === 'newProduct'" class="ml-4" :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing">
                     Add Product
                 </PrimaryButton>
-                <PrimaryButton v-if="mode==='editProduct'" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton v-if="mode === 'editProduct'" class="ml-4" :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing">
                     Edit Product
                 </PrimaryButton>
             </div>

@@ -14,7 +14,7 @@ const isVendor= computed(()=>page.props.isVendor);
     <div>
         <div class="flex justify-between w-full p-2  items-center text-xs md:text-sm  rounded-xxl">
             <div class="flex justify-between  w-auto p-2">
-                <div class="text-blue-500 sm:w-20 md:w-44  font-extrabold text-sm md:text-xl p-1 cursor-pointer " @click.prevent="gotoHome">Quantum Goods</div>
+                <div class="text-blue-500  w-36 lg:w-44  md:font-extrabold text-sm md:text-xl p-1 cursor-pointer " @click.prevent="gotoHome">Quantum Goods</div>
                 <div class="  font-bold">
 
                 <NavbarButton>

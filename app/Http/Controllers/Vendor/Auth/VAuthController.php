@@ -22,6 +22,8 @@ class VAuthController extends Controller
 
     public function register(Request $request)
     {
+        // dd($request);
+        
 
         $validatedData = $request->validate([
             'company_name' => 'unique:vendors|required|string|max:255',
@@ -32,7 +34,11 @@ class VAuthController extends Controller
             'facebook_store_url' => 'nullable|url',
             'instagram_store_url' => 'nullable|url',
             'details' => 'required|string',
+            'image' => 'image|mimes:jpeg,png|max:2048',
+
         ]);
+        // dd($validatedData);
+        // dd($request->file('image'));
         
         $vendor = new Vendor();
         
@@ -43,7 +49,11 @@ class VAuthController extends Controller
         $user=Auth::user();
         $user->role='vendor';
         $user->save();
-        
+        if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('public/Store/Images');
+
+                $vendor->image()->create(['image_path' => $path]);
+        }
         return redirect()->route('home');
     }
 }

@@ -12,7 +12,7 @@ const ProductMenu = ref(false)
 
     <Head title="Dashboard" />
 
-    <div class="h-auto  w-fit md:w-1/6   bg-white text-xs md:text-md  ">
+    <div class="h-auto  w-16 md:w-1/6   bg-white text-xs md:text-md  ">
 
         <div>
             <MenuItemSidebar @mouseenter="ProductMenu = true" @mouseleave="ProductMenu = false" @click.prevent="gotoVendorProducts">
@@ -31,13 +31,25 @@ const ProductMenu = ref(false)
             <div v-if="ProductMenu" @mouseenter="ProductMenu = true" @mouseleave="ProductMenu = false"
                 class="duration-300 ease-in-out transition-opacity text-sm">
                 <SubItem @click.prevent="gotoNewProduct">
-                    <div >
-                        Add Product
+                    <div class="text-sm">
+                        <span class="hidden md:block">
+                            Add Product
+                        </span>
+                        <span class="block md:hidden">
+                            New
+                        </span>
                     </div>
                 </SubItem>
                 <SubItem @click.prevent="gotoVendorProducts">
-                    <div>
-                        Product List
+                    <div class="text-sm">
+
+                        <span class="hidden md:block">
+                            Product List
+
+                        </span>
+                        <span class="block md:hidden">
+                            All
+                        </span>
                     </div>
                 </SubItem>
 

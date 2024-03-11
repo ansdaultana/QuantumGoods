@@ -17,8 +17,8 @@ const props = defineProps({
 
     </div>
     <div :class="{ 'w-full': mode === 'vendor', 'lg:w-1/2': mode !== 'vendor' }"
-      class="flex items-center justify-center w-full  m-5 border-gray-500  ">
-      <div :class="{ 'md:p-10': mode === 'vendor', 'md:p-20': mode !== 'vendor' }" class="shadow-2xl shadow-blue-400 border-gray-300 border-2 p-8  rounded-xl">
+      class="flex items-center justify-center w-full  m-2 border-gray-500  ">
+      <div :class="{ 'md:p-10': mode === 'vendor', 'md:p-20': mode !== 'vendor' }" class="shadow-2xl shadow-blue-400 border-gray-300 border-2 p-4  rounded-xl">
         <div class="flex-col items-center justify-center ">
           <div class="flex items-center justify-center cursor-pointer " @click.prevent="gotoHome">
             <span class="font-extrabold text-3xl text-blue-500">Quantum</span>
@@ -30,7 +30,7 @@ const props = defineProps({
           </div>
 
         </div>
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <slot />
         </div>
       </div>

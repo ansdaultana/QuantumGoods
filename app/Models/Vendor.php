@@ -27,4 +27,8 @@ class Vendor extends Model
     {
         return $this->hasMany(Order::class,'vendor_id');
     }
+    public function image()
+    {
+        return $this->hasOne(VendorImage::class);
+    }
 }
