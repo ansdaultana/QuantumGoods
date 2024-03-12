@@ -41,6 +41,10 @@ class HomeController extends Controller
             // dd($image);
                $imageData = base64_encode(Storage::get($image->image_path));
                $product->encoded_image = 'data:image/jpeg;base64,' . $imageData;
+
+               $product->is_favourited = $user ? $user->favouriteItems()->where('product_id', $product->id)->exists() : false;
+               $product->is_in_cart = $user ? $user->cartItems()->where('product_id', $product->id)->exists() : false;
+         
         }
 
         return Inertia::render(

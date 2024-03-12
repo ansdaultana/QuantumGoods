@@ -1,4 +1,5 @@
 import { router } from '@inertiajs/vue3';
+import route from 'vendor/tightenco/ziggy/src/js';
 
 const gotoSignIn = ()=>
 {
@@ -29,4 +30,10 @@ const gotoEditProduct=(id)=>{
 const DeleteProduct=(id)=>{
     router.post(`/vendor/dashboard/deleteproduct/${id}`);
 }
-export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts,gotoEditProduct,DeleteProduct };
+const AddOrRemoveCartItem=(id)=>{
+    router.post(`/customer/AddOrRemoveCartitem/${id}`);
+}
+const AddOrRemoveFavouriteitem=(id)=>{
+    router.post(`/customer/AddOrRemoveFavouriteitem/${id}`);
+}
+export { gotoSignIn, gotoVendorRegister, gotoMyShop,gotoHome,gotoNewProduct,gotoVendorProducts,gotoEditProduct,DeleteProduct,AddOrRemoveCartItem,AddOrRemoveFavouriteitem };

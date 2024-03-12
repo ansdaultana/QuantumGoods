@@ -21,7 +21,10 @@ import { Head } from '@inertiajs/vue3';
     
             </div>
         </div>
-    <TrendingProducts />
+        <div class="flex items-center justify-center">
+            <TrendingProducts />
+
+        </div>
 
     </div>
 
