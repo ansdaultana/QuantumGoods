@@ -31,7 +31,6 @@ class FavouriteItemController extends Controller
             $FavouriteItem->product_id = $product_id;
             $FavouriteItem->save();
         }
-        return redirect('/');
-
+        return response()->json(['message' => 'Product removed from favorites'], 200);
     }
 }

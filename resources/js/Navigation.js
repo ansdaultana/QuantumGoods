@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/vue3';
-import route from 'vendor/tightenco/ziggy/src/js';
+// import route from 'vendor/tightenco/ziggy/src/js';
 
 const gotoSignIn = ()=>
 {
